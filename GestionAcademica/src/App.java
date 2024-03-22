@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
-     private static ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
+    private static ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -75,6 +75,7 @@ public class App {
         double sumaNotas = 0;
         for (Estudiante estudiante : listaEstudiantes) {
             sumaNotas += estudiante.getNota();
+            
         }
 
         double promedio = sumaNotas / listaEstudiantes.size();
