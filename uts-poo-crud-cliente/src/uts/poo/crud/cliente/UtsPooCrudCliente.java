@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import uts.poo.crud.cliente.respositories.entities.Cliente;
 import uts.poo.crud.cliente.services.ClienteService;
+import uts.poo.crud.cliente.views.ViewMain;
 
 
 public class UtsPooCrudCliente {
@@ -13,6 +14,8 @@ public class UtsPooCrudCliente {
         
         load();
         listaClientes();
+        ViewMain vmain=new ViewMain();
+        vmain.setVisible(true);
     
         
         
