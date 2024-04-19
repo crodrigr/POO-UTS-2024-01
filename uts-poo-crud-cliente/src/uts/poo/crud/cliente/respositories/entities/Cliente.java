@@ -1,6 +1,9 @@
 
 package uts.poo.crud.cliente.respositories.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Cliente {
     
@@ -10,6 +13,7 @@ public class Cliente {
     private String email;
     private String celular;
     private String direccion;
+    private List<Factura> factura;
 
     public Cliente(int id, String nombre, String apellido, String email, String celular, String direccion) {
         this.id = id;
@@ -18,6 +22,7 @@ public class Cliente {
         this.email = email;
         this.celular = celular;
         this.direccion = direccion;
+        this.factura=new ArrayList();
     }
     
     
@@ -69,6 +74,16 @@ public class Cliente {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+    public List<Factura> getFactura() {
+        return factura;
+    }
+
+    public void setFactura(List<Factura> factura) {
+        this.factura = factura;
+    }
+    
+    
     
     
     
