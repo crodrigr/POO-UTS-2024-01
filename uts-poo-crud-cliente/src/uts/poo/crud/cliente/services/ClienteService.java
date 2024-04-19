@@ -24,6 +24,10 @@ public class ClienteService {
          return RepositoryCliente.save(cliente);
     }
     
+    public static Cliente update(int id, Cliente cliente){
+         return RepositoryCliente.update(id,cliente);
+    }
+    
     public static void delete(int id){
         RepositoryCliente.delete(id);
     }

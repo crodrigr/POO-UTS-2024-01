@@ -5,6 +5,7 @@
 package uts.poo.crud.cliente.views;
 
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import uts.poo.crud.cliente.respositories.entities.Cliente;
 import uts.poo.crud.cliente.services.ClienteService;
 
@@ -13,12 +14,36 @@ import uts.poo.crud.cliente.services.ClienteService;
  * @author camilo
  */
 public class ViewMain extends javax.swing.JFrame {
+    
+    DefaultTableModel tableModelCliente=null;
 
     /**
      * Creates new form ViewMain
      */
     public ViewMain() {
         initComponents();
+        iniTableModelCliente();
+    }
+    
+    public void iniTableModelCliente(){
+        tableModelCliente = new DefaultTableModel();
+        tableModelCliente.addColumn("Id");
+        tableModelCliente.addColumn("Nombre");
+        tableModelCliente.addColumn("Apellido");
+        tableModelCliente.addColumn("Email");
+        tableModelCliente.addColumn("Celular");
+        tableModelCliente.addColumn("Dirección");
+    
+    }
+    
+    public void limpiarFormulario(){
+         jTextField_idCliente.setText("");
+        jTextField_nombreCliente.setText("");
+        jTextField_apellidoCliente.setText("");
+        jTextField_emailCliente.setText("");
+        jTextField_celularCliente.setText("");
+        jTextField_direccionCliente.setText("");        
+
     }
     
     public void listaClientes(){
@@ -26,6 +51,21 @@ public class ViewMain extends javax.swing.JFrame {
         for(Cliente c: listClient){
             System.out.println("nombres: "+c.getNombre() +" "+c.getApellido());
         }
+    }
+    
+    public void loadJTableCliente(){
+       this.iniTableModelCliente();
+       List<Cliente> listClient=ClienteService.findAll();
+       for (Cliente cliente : listClient) {
+            Object[] rowData = {cliente.getId(),cliente.getNombre(),cliente.getApellido(),cliente.getEmail(), cliente.getCelular(),cliente.getDireccion()};
+            tableModelCliente.addRow(rowData);
+        }
+       jTableCliente.setModel(tableModelCliente);
+    }
+    
+    public void addClienteJTable(Cliente cliente){
+        Object[] rowData = {cliente.getId(),cliente.getNombre(),cliente.getApellido(),cliente.getEmail(), cliente.getCelular(), cliente.getDireccion()};
+        tableModelCliente.addRow(rowData);
     }
 
     /**
@@ -37,6 +77,10 @@ public class ViewMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -53,6 +97,36 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField_direccionCliente = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableCliente = new javax.swing.JTable();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,6 +191,30 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Editar");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Eliminar");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -155,6 +253,10 @@ public class ViewMain extends javax.swing.JFrame {
                 .addComponent(jTextField_direccionCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -179,25 +281,49 @@ public class ViewMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_direccionCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
                 .addContainerGap())
         );
+
+        jTableCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "Nombre", "Apellido", "Email", "Celular"
+            }
+        ));
+        jTableCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableClienteMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTableCliente);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(162, 162, 162)
+                            .addComponent(jLabel1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(23, 23, 23)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(458, 458, 458)
+                                    .addComponent(jButton1))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,7 +332,9 @@ public class ViewMain extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(23, 23, 23))
         );
@@ -247,15 +375,78 @@ public class ViewMain extends javax.swing.JFrame {
         String direccion=jTextField_direccionCliente.getText();
         Cliente cliente=new Cliente(id,nombre,apellido,email,celular,direccion);
         ClienteService.save(cliente);
-        jTextField_idCliente.setText("");
-        jTextField_nombreCliente.setText("");
-        jTextField_apellidoCliente.setText("");
-        jTextField_emailCliente.setText("");
-        jTextField_celularCliente.setText("");
-        jTextField_direccionCliente.setText("");
+        this.limpiarFormulario();
         this.listaClientes();
+        this.addClienteJTable(cliente);
+        
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int filaSeleccionada = jTableCliente.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            
+            int id = (int) jTableCliente.getValueAt(filaSeleccionada, 0);
+            String nombre=jTextField_nombreCliente.getText();
+            String apellido=jTextField_apellidoCliente.getText();
+            String email=jTextField_emailCliente.getText();
+            String celular=jTextField_celularCliente.getText();
+            String direccion=jTextField_direccionCliente.getText();
+            Cliente cliente=new Cliente(id,nombre,apellido,email,celular,direccion);
+            ClienteService.update(id, cliente);
+            
+            jTableCliente.setValueAt(nombre,filaSeleccionada, 1);
+            jTableCliente.setValueAt(apellido,filaSeleccionada, 2);
+            jTableCliente.setValueAt(email,filaSeleccionada, 3);
+            jTableCliente.setValueAt(celular,filaSeleccionada, 4);
+            jTableCliente.setValueAt(direccion,filaSeleccionada, 5);
+            
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTableClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClienteMouseClicked
+       int filaSeleccionada = jTableCliente.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            // Obtener los datos del cliente seleccionado
+            int id = (int) jTableCliente.getValueAt(filaSeleccionada, 0);
+            String nombre = (String) jTableCliente.getValueAt(filaSeleccionada, 1);
+            String apellido = (String) jTableCliente.getValueAt(filaSeleccionada, 2);
+            String email = (String) jTableCliente.getValueAt(filaSeleccionada, 3);
+            String celular = (String) jTableCliente.getValueAt(filaSeleccionada, 4);
+            String direccion = (String) jTableCliente.getValueAt(filaSeleccionada, 5);
+            jTextField_idCliente.setText(Integer.toString(id));
+            jTextField_nombreCliente.setText(nombre);
+            jTextField_apellidoCliente.setText(apellido);
+            jTextField_emailCliente.setText(email);
+            jTextField_celularCliente.setText(celular);
+            jTextField_direccionCliente.setText(direccion);
+        }
+    }//GEN-LAST:event_jTableClienteMouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       int filaSeleccionada = jTableCliente.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            
+            int id=(int) jTableCliente.getValueAt(filaSeleccionada, 0);
+            ClienteService.delete(id);
+            this.limpiarFormulario();            
+            //this.loadJTableCliente(); // sin recargar lista
+            
+            DefaultTableModel model = (DefaultTableModel) jTableCliente.getModel();
+            model.removeRow(filaSeleccionada);
+            
+            
+            
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -295,6 +486,8 @@ public class ViewMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -303,6 +496,12 @@ public class ViewMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableCliente;
     private javax.swing.JTextField jTextField_apellidoCliente;
     private javax.swing.JTextField jTextField_celularCliente;
     private javax.swing.JTextField jTextField_direccionCliente;
