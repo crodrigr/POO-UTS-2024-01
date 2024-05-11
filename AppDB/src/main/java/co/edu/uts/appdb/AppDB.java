@@ -4,6 +4,10 @@
 
 package co.edu.uts.appdb;
 
+import co.edu.uts.appdb.repositories.RepositoryCliente;
+import co.edu.uts.appdb.repositories.RepositoryClienteImpl;
+import co.edu.uts.appdb.repositories.models.Cliente;
+
 /**
  *
  * @author camilo
@@ -11,6 +15,24 @@ package co.edu.uts.appdb;
 public class AppDB {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+        RepositoryCliente repositoriCliente=new RepositoryClienteImpl();
+        
+        Cliente cliente=new Cliente();
+        cliente.setNombre("Camilo");
+        cliente.setNombre("Rodriguez");
+        cliente.setCelular("3485858585");
+        cliente.setDireccion("xxxxxx");
+        cliente.setEmail("crodrigr@gmail.com");
+        
+        repositoriCliente.crear(cliente);
+        
+        
+        
+        
+        
+        
+        
+        
     }
 }

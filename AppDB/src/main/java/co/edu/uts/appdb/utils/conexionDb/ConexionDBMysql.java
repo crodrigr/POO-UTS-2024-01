@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class conexionDBMysql {
+public class ConexionDBMysql {
     
     private static String url="jdbc:mysql://localhost:3307/db_uts_factura";
     private static String username="root";
